@@ -1,0 +1,35 @@
+{
+	"verticles": {
+		"br.com.raphasil.vertx.sample.verticle.ControllerVerticle": {
+			"deploymentOptions": {
+				"config": {
+					"http.port": 8080
+				},
+				"instances": 1,
+				"ha": true,
+				"worker": false,
+				"multiThreaded": false
+			}
+		},
+		"br.com.raphasil.vertx.sample.verticle.ServiceVerticle": {
+			"deploymentOptions": {
+				"config": {
+					
+				},
+				"instances": 4,
+				"ha": true,
+				"worker": false,
+				"multiThreaded": false
+			}
+		}
+	},
+	"vertxOptions": {
+		"clustered": false,
+		"clusterHost": "localhost",
+		"quorumSize": 1,
+		"haEnabled": true,
+		"haGroup": "definition",
+		"eventLoopPoolSize": 4,
+		"workerPoolSize": 12
+	}
+}
