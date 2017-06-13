@@ -10,8 +10,12 @@ import br.com.raphasil.vertx.sample.infrastructure.helper.ResourceHelper;
 import br.com.raphasil.vertx.sample.infrastructure.helper.VertxDeployHelper;
 import io.reactivex.functions.Consumer;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 public class VertxMain implements Daemon {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(VertxMain.class);
 
 	private final ResourceHelper resourceHelper;
 	private final VertxDeployHelper vertxDeployHelper;
@@ -19,7 +23,7 @@ public class VertxMain implements Daemon {
 	private final Consumer<Throwable> logError;
 
 	public VertxMain() {
-		this(new ResourceHelper(), new VertxDeployHelper(), message -> System.out.println("Verticle Deployed " + message), throwable -> System.out.println("Verticle Could not be Deployed " + throwable));
+		this(new ResourceHelper(), new VertxDeployHelper(), message -> LOGGER.info("Verticle Deployed {0}", message), throwable -> LOGGER.error("Verticle Could not be Deployed {0}", throwable));
 	}
 	
 	public VertxMain(ResourceHelper resourceHelper, VertxDeployHelper vertxDeployHelper, Consumer<String> logSuccess, Consumer<Throwable> logError) {

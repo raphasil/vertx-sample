@@ -1,4 +1,4 @@
-{
+{		
 	"verticles": {
 		"br.com.raphasil.vertx.sample.verticle.ControllerVerticle": {
 			"deploymentOptions": {
@@ -8,7 +8,10 @@
 				"instances": 1,
 				"ha": true,
 				"worker": false,
-				"multiThreaded": false
+				"multiThreaded": false,
+				"metricsOptions": {
+					"enable": true
+				}
 			}
 		},
 		"br.com.raphasil.vertx.sample.verticle.ServiceVerticle": {
@@ -17,6 +20,17 @@
 					
 				},
 				"instances": 4,
+				"ha": true,
+				"worker": false,
+				"multiThreaded": false
+			}
+		},
+		"br.com.raphasil.vertx.sample.verticle.ClientRandomUserVerticle": {
+			"deploymentOptions": {
+				"config": {
+					
+				},
+				"instances": 2,
 				"ha": true,
 				"worker": false,
 				"multiThreaded": false

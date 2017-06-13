@@ -8,14 +8,18 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.ext.dropwizard.DropwizardMetricsOptions;
 
 public class StandaloneVertxFactory implements VertxFactory {
 
 	private CountDownLatch latch;
 
     @Override
-    public Single<Vertx> createVertx(VertxOptions vertxOptions) {
+    public Single<Vertx> createVertx(VertxOptions vertxOptions) {    	
         this.latch = new CountDownLatch(1);
+        
+        vertxOptions.setMetricsOptions(new DropwizardMetricsOptions().setEnabled(true));
+        
         Vertx vertx = Vertx.vertx(vertxOptions);
         Single<Vertx> map = Single.just(vertx)
                      .map(v -> {                    	 

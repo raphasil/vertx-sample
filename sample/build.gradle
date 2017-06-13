@@ -15,6 +15,8 @@ dependencies {
   
   compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
   
+  compile group: 'io.vertx', name: 'vertx-dropwizard-metrics', version: '3.4.1'  
+  
   compile group: 'com.englishtown.vertx', name: 'vertx-guice', version: '2.3.1'    
   
   compile group: 'commons-daemon', name: 'commons-daemon', version:'1.0.15'

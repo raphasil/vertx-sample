@@ -7,8 +7,12 @@ import br.com.raphasil.vertx.sample.module.MainModule;
 import br.com.raphasil.vertx.sample.module.ServiceModule;
 import br.com.raphasil.vertx.sample.service.SampleService;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 public class ServiceVerticle extends AbstractVerticle {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(ServiceVerticle.class);
 			
 	@Inject
 	private SampleService sampleService;
@@ -19,13 +23,12 @@ public class ServiceVerticle extends AbstractVerticle {
 		Guice.createInjector(new MainModule(vertx), new ServiceModule()).injectMembers(this);
 		
 		sampleService.config();
-				
-		System.out.println(String.format("[%s] - ServiceVerticle start", Thread.currentThread().getId()));		        
+		
+		LOGGER.info("[{0}] - ServiceVerticle start", Thread.currentThread().getId());
     }
     
     @Override
     public void stop() throws Exception {
-      
+    	LOGGER.info("[{0}] - ServiceVerticle stop", Thread.currentThread().getId());      
     }
-
 }

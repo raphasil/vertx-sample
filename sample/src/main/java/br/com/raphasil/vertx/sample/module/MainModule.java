@@ -25,7 +25,7 @@ public class MainModule extends AbstractModule {
 		
 		bind(Context.class).toInstance(vertx.getOrCreateContext());
 		
-		Names.bindProperties(binder(), buildProperties());		
+		Names.bindProperties(binder(), buildProperties());
 	}
 
 	private Properties buildProperties() {

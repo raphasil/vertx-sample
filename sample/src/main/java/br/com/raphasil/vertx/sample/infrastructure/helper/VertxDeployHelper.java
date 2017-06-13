@@ -17,7 +17,7 @@ public class VertxDeployHelper {
 	private Observable<String> deployVerticle(Vertx vertx, Map.Entry<String, Object> conf) {
 		JsonObject json = ((JsonObject) conf.getValue());
 		JsonObject config = json.getJsonObject(ConfigJsonConstant.DEPLOY_OPTIONS);
-		DeploymentOptions options = new DeploymentOptions(config);
+		DeploymentOptions options = new DeploymentOptions(config);		
 				
 		return Observable.fromPublisher(observer -> {
 			vertx.deployVerticle(conf.getKey(), options, result -> {
