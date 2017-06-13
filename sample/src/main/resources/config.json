@@ -19,7 +19,7 @@
 				"config": {
 					
 				},
-				"instances": 4,
+				"instances": 2,
 				"ha": true,
 				"worker": false,
 				"multiThreaded": false
@@ -38,12 +38,10 @@
 		}
 	},
 	"vertxOptions": {
-		"clustered": false,
-		"clusterHost": "localhost",
+		"clustered": true,
+		"clusterHost": "127.0.0.1",
 		"quorumSize": 1,
 		"haEnabled": true,
-		"haGroup": "definition",
-		"eventLoopPoolSize": 4,
-		"workerPoolSize": 12
+		"haGroup": "definition"
 	}
 }

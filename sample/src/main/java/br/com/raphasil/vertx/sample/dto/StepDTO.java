@@ -15,6 +15,8 @@ public class StepDTO implements Serializable {
 	private String message;
 	
 	private Date date;
+	
+	private String server;
 
 	public long getId() {
 		return id;
@@ -38,5 +40,13 @@ public class StepDTO implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
 	}
 }

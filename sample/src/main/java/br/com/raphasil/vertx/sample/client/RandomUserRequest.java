@@ -83,6 +83,7 @@ public class RandomUserRequest {
 		step.setId(Thread.currentThread().getId());
 		step.setMessage(message);
 		step.setDate(new Date());
+		step.setServer(System.getProperty("server.name", "default"));
 		return step;
 	}
 

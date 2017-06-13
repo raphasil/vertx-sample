@@ -2,7 +2,8 @@ package br.com.raphasil.vertx.sample.infrastructure;
 
 import java.util.concurrent.TimeUnit;
 
-import com.hazelcast.config.Config;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ICountDownLatch;
 import com.hazelcast.core.LifecycleEvent;
 
@@ -44,8 +45,8 @@ public class ClusteredVertxFactory implements VertxFactory {
 	}
 
 	private HazelcastClusterManager getClusterManager() {
-		Config hazelcastConfig = new Config();		
-		return new HazelcastClusterManager(hazelcastConfig);
+		HazelcastInstance instance = Hazelcast.newHazelcastInstance();
+		return new HazelcastClusterManager(instance);
 	}
 
 	public void beforeLeaveUndeploy(Vertx vertx) {

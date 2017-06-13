@@ -1,5 +1,7 @@
 package br.com.raphasil.vertx.sample;
 
+import java.util.Random;
+
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonInitException;
@@ -54,6 +56,10 @@ public class VertxMain implements Daemon {
 	}
 	
 	public void init() {
+		Random rand = new Random();
+		int id = rand.nextInt(30);
+		
+		System.setProperty("server.name", "server " + id);
 		
 		resourceHelper.getConfig()
 				.ifPresent(c -> VertxFactory.create(new VertxOptions(c.getJsonObject(ConfigJsonConstant.VERTX_OPTIONS)))
