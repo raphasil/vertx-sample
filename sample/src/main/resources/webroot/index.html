@@ -1,0 +1,97 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.7/highcharts.js"></script></head>
+  <script src="vertx-eventbus.js"></script>
+<body>
+  <h1>Metrics dashboard</h1>
+
+  <div class="news">Latest value: <span id="value"></span></div><br>
+
+  <div id="container-eventbus-controller" style="height: 300px; min-width: 150px"></div>  
+
+  <script>
+    Highcharts.setOptions({
+      global: {
+        useUTC: false
+      }
+    });
+    var arr = ['eventbus-controller'];
+    for( var i in  arr) {
+    	var name = arr[i];    	
+    	console.log(name);
+    	$('#container-' + name).highcharts({
+    	      chart: {
+    	        type: 'spline',
+    	        animation: Highcharts.svg, // don't animate in old IE
+    	        marginRight: 10,
+    	        events: {
+    	          load: function () {
+    	            var that = this;
+    	            var sentSeries = this.series[0];
+    	            var deliveredSeries = this.series[1];
+    	            var eb = new EventBus("http://localhost:8080/eventbus");
+    	            eb.onopen = function() {
+    	              eb.registerHandler("metrics", function(err, res) {
+    	                var x = (new Date()).getTime(); // current time
+    	                var sent = res.body["messages.sent"];
+    	                if (sent != null) {
+    	                  sentSeries.addPoint([x, sent.oneSecondRate], false, true);
+    	                  // Add the value to the `value` placeholder (ease testing)
+    	                  $("#value").html(sent.oneSecondRate);
+    	                }
+    	                that.redraw();
+    	              });
+    	            };
+    	          }
+    	        }
+    	      },
+    	      title: {
+    	        text: 'Sent messages throughput'
+    	      },
+    	      xAxis: {
+    	        type: 'datetime',
+    	        tickPixelInterval: 150
+    	      },
+    	      yAxis: {
+    	        title: {
+    	          text: 'Value'
+    	        },
+    	        plotLines: [{
+    	          value: 0,
+    	          width: 1,
+    	          color: '#808080'
+    	        }]
+    	      },
+    	      legend: {
+    	        enabled: false
+    	      },
+    	      exporting: {
+    	        enabled: false
+    	      },
+    	      series: [{
+    	        name: 'sent',
+    	        data: (function () {
+    	          var data = [],
+    	              time = (new Date()).getTime(),
+    	              i;
+    	          for (i = -19; i <= 0; i += 1) {
+    	            data.push({
+    	              x: time + i * 1000,
+    	              y: 0
+    	            });
+    	          }
+    	          return data;
+    	        }())
+    	      }]
+    	    });
+    	
+    }
+    
+    
+  </script>
+
+
+</body>
+</html>
